@@ -1,22 +1,13 @@
-const express = require("express");
-const fs = require("fs");
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-const subscription = fs.readFileSync("./subscription.txt", "utf8").trim();
-
-app.get("/", (req, res) => {
-  res.type("text/plain").send("ZEUS Subscription is online");
-});
-
-app.get("/sub", (req, res) => {
-  res.type("text/plain").send(subscription + "\n");
-});
-
-app.get("/subscription", (req, res) => {
-  res.type("text/plain").send(subscription + "\n");
-});
-
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`ZEUS subscription server listening on ${PORT}`);
-});
+const express=require('express'); const fs=require('fs');
+const app=express(); const PORT=process.env.PORT||3000;
+const subscription=fs.readFileSync('./subscription.txt','utf8').trim();
+app.get('/sub',(req,res)=>res.type('text/plain').send(subscription+'\n'));
+app.get('/subscription',(req,res)=>res.type('text/plain').send(subscription+'\n'));
+app.get('/api/stats',(req,res)=>res.json({status:'active',configCount:subscription.split(/\r?\n/).filter(Boolean).length,used:'—',remaining:'—',expiry:'—',devices:'—',requests:'—'}));
+app.get('/',(req,res)=>res.send(`<!doctype html><html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZEUS</title><style>
+*{box-sizing:border-box}body{margin:0;background:#070a10;color:#f5f7fa;font-family:system-ui,Tahoma,sans-serif}.wrap{max-width:760px;margin:auto;padding:20px 15px 45px}.card{background:#101722;border:1px solid #202b3a;border-radius:20px;padding:20px;margin:13px 0;box-shadow:0 12px 35px #0006}.hero{text-align:center;padding:30px;background:linear-gradient(145deg,#111b2a,#0b1018)}.logo{font-size:38px;font-weight:900;letter-spacing:3px}.muted{color:#91a0b2}.pill{display:inline-block;margin-top:8px;padding:6px 12px;border-radius:99px;background:#18263a;color:#9eeaff}.status{display:flex;justify-content:space-between;gap:10px;align-items:center}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#43e6a1;box-shadow:0 0 12px #43e6a1;margin-left:7px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#0b111a;border:1px solid #1c2634;border-radius:15px;padding:15px}.label{font-size:12px;color:#8997a8}.value{font-size:20px;font-weight:800;margin-top:5px}.channel{display:flex;justify-content:space-between;align-items:center;gap:12px}.channelname{font-weight:800;font-size:18px}.btn{border:0;border-radius:13px;padding:13px 16px;background:#eaf8ff;color:#071018;font-weight:800;cursor:pointer;text-decoration:none;display:block;width:100%;text-align:center;margin-top:9px}.btn2{background:#172438;color:#d9f7ff;border:1px solid #29394d}.btnsmall{width:auto;margin:0}.copy{direction:ltr;text-align:left;background:#080c13;border-radius:12px;padding:12px;margin-top:10px;word-break:break-all;color:#b9c7d5;display:none}.footer{text-align:center;color:#657386;font-size:12px;margin-top:22px}@media(max-width:520px){.channel{flex-direction:column;align-items:stretch}.btnsmall{width:100%}}
+</style></head><body><main class="wrap"><section class="card hero"><div class="logo">ZEUS</div><div class="muted">Subscription</div><div class="pill">S2NIRVUG</div></section><section class="card"><div class="status"><b><span class="dot"></span>اشتراک فعال</b><span id="count" class="muted">...</span></div></section><section class="card"><h3>آمار اشتراک</h3><div class="grid"><div class="stat"><div class="label">حجم مصرف‌شده</div><div class="value" id="used">—</div></div><div class="stat"><div class="label">حجم باقی‌مانده</div><div class="value" id="remaining">—</div></div><div class="stat"><div class="label">زمان باقی‌مانده</div><div class="value" id="expiry">—</div></div><div class="stat"><div class="label">دستگاه‌ها</div><div class="value" id="devices">—</div></div></div></section><section class="card"><h3>کانال تلگرام</h3><div class="channel"><div><div class="channelname">@reza_irvpn</div><div class="muted">اخبار و بروزرسانی‌ها</div></div><a class="btn btnsmall" href="https://t.me/reza_irvpn" target="_blank">ورود به کانال</a></div></section><section class="card"><h3>لینک Subscription</h3><button class="btn" onclick="copySub()">کپی لینک ساب</button><button class="btn btn2" onclick="showSub()">نمایش لینک ساب</button><div id="link" class="copy"></div></section><div class="footer">ZEUS • Fast • Secure • Unlimited</div></main><script>
+async function stats(){try{let s=await fetch('/api/stats').then(r=>r.json());count.textContent=s.configCount+' کانفیگ';used.textContent=s.used;remaining.textContent=s.remaining;expiry.textContent=s.expiry;devices.textContent=s.devices}catch(e){count.textContent='خطا'}}
+const sub=location.origin+'/sub'; function copySub(){navigator.clipboard.writeText(sub).then(()=>alert('لینک ساب کپی شد'))} function showSub(){link.style.display='block';link.textContent=sub} stats();
+</script></body></html>`));
+app.listen(PORT,'0.0.0.0',()=>console.log('ZEUS panel listening on '+PORT));
