@@ -1,6 +1,11 @@
-# ZEUS Subscription Panel
-Deploy to Railway with `npm start`.
-- `/` custom panel with Telegram channel and subscription stats
-- `/sub` Base64 subscription
-- `/subscription` same subscription
-- `/api/stats` JSON stats
+# reza_irvpn subscription panel
+
+Railway-ready Node.js subscription panel.
+
+## Endpoints
+- `/` — status page
+- `/sub` — Base64 subscription
+- `/configs` — JSON configs
+- `/health` — health check
+
+The status page shows only 10 GB and 3 days, with no flag, and includes the Telegram channel `@reza_irvpn`.

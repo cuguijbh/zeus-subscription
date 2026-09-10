@@ -1,1 +1,16 @@
-{"name":"zeus-subscription-panel","version":"1.0.0","private":true,"scripts":{"start":"node server.js"},"dependencies":{"express":"^4.21.2"}}
+{
+  "name": "reza-irvpn-subscription",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Telegram subscription panel for Railway",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
